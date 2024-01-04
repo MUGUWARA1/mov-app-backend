@@ -1,10 +1,11 @@
 package com.example.backendmovapp.Modele;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.List;
+
 
 @Entity
 public class User {
@@ -14,26 +15,32 @@ public class User {
     private String nom,prenom;
     private String username ,password;
 
-    public User(Long id, String nom, String prenom, String username, String password) {
-        this.id = id;
+    @JsonManagedReference
+    @OneToMany(mappedBy ="user",fetch = FetchType.EAGER)
+
+    private List<FilmFav> filmFavList;
+
+    public User( String nom, String prenom, String username, String password, List<FilmFav> filmFavList) {
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
         this.password = password;
+        this.filmFavList = filmFavList;
+    }
+
+    public User() {
     }
 
     @Override
-    public String toString() {
+    public String   toString() {
         return "User{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", filmFavList=" + filmFavList +
                 '}';
-    }
-
-    public User() {
     }
 
     public Long getId() {
@@ -74,5 +81,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<FilmFav> getFilmFavList() {
+        return filmFavList;
+    }
+
+    public void setFilmFavList(List<FilmFav> filmFavList) {
+        this.filmFavList = filmFavList;
     }
 }

@@ -1,33 +1,26 @@
 package com.example.backendmovapp.Modele;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Commentaire {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
 
-    public Commentaire(Long id, String text, Long idFilm, Long idUser) {
+
+    private Long idFilm;
+
+    @OneToOne
+    private User user;
+
+    public Commentaire(Long id, String text, Long idFilm, User user) {
         this.id = id;
         this.text = text;
         this.idFilm = idFilm;
-        this.idUser = idUser;
-    }
-
-    private Long idFilm;
-    private Long idUser;
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+        this.user = user;
     }
 
     public Commentaire() {
@@ -57,13 +50,21 @@ public class Commentaire {
         this.idFilm = idFilm;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Commentaire{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", idFilm=" + idFilm +
-                ", idUser=" + idUser +
+                ", user=" + user +
                 '}';
     }
 }

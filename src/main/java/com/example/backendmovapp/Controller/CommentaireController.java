@@ -26,7 +26,7 @@ public class CommentaireController {
     }
 
     @PostMapping("/comments")
-    public Commentaire postCommentaire(Commentaire c){
+    public Commentaire postCommentaire(@RequestBody Commentaire c){
         return commrep.save(c);
     }
 

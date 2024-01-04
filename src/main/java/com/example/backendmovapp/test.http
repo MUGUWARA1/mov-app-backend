@@ -1,0 +1,12 @@
+POST http://localhost:8090/users/
+Content-Type: application/json
+
+
+{
+  "id": 2222,
+  "nom": "Derouich",
+  "prenom": "karim",
+  "username": "Muguwara",
+  "password": "20012001",
+  "filmFavList": []
+}
